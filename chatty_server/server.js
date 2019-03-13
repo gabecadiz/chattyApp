@@ -30,14 +30,15 @@ const server = express()
     // console.log(`User ${parsedMessage.username} said ${parsedMessage.content}`);
 
     if(parsedMessage.type === "postMessage"){
-    wss.clients.forEach(function each(client) {
-      client.send(
-        JSON.stringify({
-          type: "incomingMessage",
-          data: parsedMessage
-        })
-      );
-    });
+
+      wss.clients.forEach(function each(client) {
+        client.send(
+          JSON.stringify({
+            type: "incomingMessage",
+            data: parsedMessage
+          })
+        );
+      });
 
     }
 
