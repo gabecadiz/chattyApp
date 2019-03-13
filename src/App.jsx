@@ -10,27 +10,15 @@ class App extends Component {
     super();
     this.state =
     {
-      currentUser: {name: null}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages:
-      [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-          id: "1"
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-          id: "2"
-        }
-      ]
-    }
+      currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+      messages: []
+    };
 
   }
 
 
   _addMessage = (message) => {
-    const newMessage = {id: uuidv1(), username: this.state.currentUser.name, content: message}
+    const newMessage = {id: uuidv1(), username: this.state.currentUser.name, content: message, type:"postMessage"}
     const messages = this.state.messages.concat(newMessage)
     // this.setState({messages: messages})
     this.socket.send(JSON.stringify(newMessage))
@@ -60,7 +48,14 @@ class App extends Component {
 
     // Listen for messages
     this.socket.addEventListener('message', (event) => {
-      console.log('Message from server ', event.data);
+      let parsedData = JSON.parse(event.data).data;
+
+      console.log(parsedData)
+      this.setState( state => {
+        return {
+          messages:[parsedData, ...state.messages]
+        }
+      })
     });
 
   }
