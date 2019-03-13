@@ -23,6 +23,7 @@ const server = express()
     console.log('Client connected')
 
   ws.on('message', function incoming(message) {
+    console.log(message)
     let parsedMessage = JSON.parse(message);
     console.log(`User ${parsedMessage.username} said ${parsedMessage.content}`);
 

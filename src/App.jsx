@@ -3,6 +3,8 @@ import ChatBar from "./Chatbar.jsx";
 import MessageList from "./MessageList.jsx"
 import NavBar from "./NavBar.jsx"
 
+const uuidv1 = require('uuid/v1');
+
 class App extends Component {
   constructor(){
     super();
@@ -28,7 +30,7 @@ class App extends Component {
 
 
   _addMessage = (message) => {
-    const newMessage = {id: this.state.messages.length + 1, username: this.state.currentUser.name, content: message}
+    const newMessage = {id: uuidv1(), username: this.state.currentUser.name, content: message}
     const messages = this.state.messages.concat(newMessage)
     // this.setState({messages: messages})
     this.socket.send(JSON.stringify(newMessage))
