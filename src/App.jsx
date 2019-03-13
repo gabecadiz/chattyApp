@@ -39,13 +39,18 @@ class App extends Component {
   }
 
   componentDidMount(){
-    setTimeout(()=>{
-      console.log("Simulating incoming message");
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      this.setState({messages: messages})
-    }, 1000);
-  };
+    // setTimeout(()=>{
+    //   console.log("Simulating incoming message");
+    //   const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+    //   const messages = this.state.messages.concat(newMessage)
+    //   this.setState({messages: messages})
+    // }, 1000);
+
+    let socket = new WebSocket('ws://localhost:3001')
+    socket.onopen = () => {
+      console.log("Connected to server")
+    }
+  }
 
 
 
