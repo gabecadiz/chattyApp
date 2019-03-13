@@ -10,7 +10,7 @@ class App extends Component {
     super();
     this.state =
     {
-      currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: "Anonymous"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: []
     };
 
@@ -49,8 +49,11 @@ class App extends Component {
     // Listen for messages
     this.socket.addEventListener('message', (event) => {
       let parsedData = JSON.parse(event.data).data;
+      let parsedType = JSON.parse(event.data).type;
 
       console.log(parsedData)
+
+      if(parsedType === "incomingMessage")
       this.setState( state => {
         return {
           messages:[parsedData, ...state.messages]

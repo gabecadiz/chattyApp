@@ -33,6 +33,7 @@ const server = express()
     wss.clients.forEach(function each(client) {
       client.send(
         JSON.stringify({
+          type: "incomingMessage",
           data: parsedMessage
         })
       );
