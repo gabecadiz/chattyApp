@@ -22,10 +22,11 @@ const server = express()
   wss.on('connection', (ws) => {
     console.log('Client connected')
 
-  ws.on('message', function incoming(data) {
-    console.log(data);
+  ws.on('message', function incoming(message) {
+    let parsedMessage = JSON.parse(message);
+    console.log(`User ${parsedMessage.username} said ${parsedMessage.content}`);
 
-  // ws.send('message received')
+  ws.send('message received')
   });
 
     //setup a callback for when a client closes the socket. This usually means they closed their browser

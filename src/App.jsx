@@ -8,7 +8,7 @@ class App extends Component {
     super();
     this.state =
     {
-      currentUser: {name: ""}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: null}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages:
       [
         {
@@ -30,7 +30,8 @@ class App extends Component {
   _addMessage = (message) => {
     const newMessage = {id: this.state.messages.length + 1, username: this.state.currentUser.name, content: message}
     const messages = this.state.messages.concat(newMessage)
-    this.setState({messages: messages})
+    // this.setState({messages: messages})
+    this.socket.send(JSON.stringify(newMessage))
   }
 
   _alterUsername = (e) => {
@@ -48,16 +49,16 @@ class App extends Component {
 
 
     // Create WebSocket connection.
-    const socket = new WebSocket('ws://localhost:3001');
+    this.socket = new WebSocket('ws://localhost:3001');
 
     // Connection opened
-    socket.addEventListener('open', function (event) {
-        socket.send('Hello Server!');
+    this.socket.addEventListener('open', (event) => {
+      // this.socket.send('Hello Server!');
     });
 
     // Listen for messages
-    socket.addEventListener('message', function (event) {
-        console.log('Message from server ', event.data);
+    this.socket.addEventListener('message', (event) => {
+      console.log('Message from server ', event.data);
     });
 
   }
