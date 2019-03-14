@@ -64,6 +64,23 @@ body {
   font-weight: 700;
 }
 
+.message-image-container{
+  display: flex;
+  padding: 5px;
+}
+
+.message-image-spacing{
+  flex: 2;
+}
+
+.message-image-spacing2{
+  flex: 8;
+}
+.message-image{
+  max-width: 60%;
+  padding: 1rem;
+}
+
 .navbar {
   background: tomato;
   border-bottom: 1px solid black;

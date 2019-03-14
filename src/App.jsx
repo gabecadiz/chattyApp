@@ -24,6 +24,18 @@ class App extends Component {
       content: message,
       type:"postMessage"
     }
+
+    let regex = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i
+    let found = message.match(regex);
+
+
+
+    if (regex.test(message)){
+      newMessage.imgUrl = found[0];
+      let messageOnly = message.replace(regex, "");
+      newMessage.content = messageOnly;
+    }
+
     const messages = this.state.messages.concat(newMessage)
     this.socket.send(JSON.stringify(newMessage))
   }
