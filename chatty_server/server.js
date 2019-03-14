@@ -24,30 +24,31 @@ const server = express()
 
 
   //listening to client
-  ws.on('message', function incoming(message) {
-    let parsedMessage = JSON.parse(message);
+  ws.on('message', function incoming(clientData) {
+    let parsedData = JSON.parse(clientData);
 
-    if(parsedMessage.type === "postMessage"){
+    if(parsedData.type === "postMessage"){
 
       wss.clients.forEach(function each(client) {
         client.send(
           JSON.stringify({
             type: "incomingMessage",
-            data: parsedMessage
+            data: parsedData
           })
         );
       });
 
     }
 
-    if(parsedMessage.type ==="postNotification"){
-
-      ws.send(
-        JSON.stringify({
-          type: "incomingNotification",
-          data: parsedMessage
-        })
-      )
+    if(parsedData.type ==="postNotification"){
+      wss.clients.forEach(function each(client) {
+        client.send(
+          JSON.stringify({
+            type: "incomingNotification",
+            data: parsedData
+          })
+        );
+      });
     }
 
 
