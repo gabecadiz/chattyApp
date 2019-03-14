@@ -12,6 +12,7 @@ const server = express()
 
   //counter for users logged in
   let userCounter = 0;
+  let userColors = ["red","blue","green","pink"];
 
   //create the WebSockets server
 
@@ -32,6 +33,7 @@ const server = express()
           type: "incomingUser",
           data: {
             userCounter: userCounter,
+            userColor: userColors[ userCounter % 4]
           }
         })
       );

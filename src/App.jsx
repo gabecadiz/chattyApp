@@ -12,7 +12,8 @@ class App extends Component {
     {
       currentUser: {name: "Anonymous"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
-      userCounter: 0
+      userCounter: 0,
+      userColor: ""
     };
 
   }
@@ -82,14 +83,15 @@ class App extends Component {
       }
 
       if(parsedType ==="incomingUser"){
+        console.log(parsedData)
         this.setState ( state => {
           return {
-            userCounter: parsedData.userCounter
+            userCounter: parsedData.userCounter,
+            userColor: parsedData.userColor
           }
         })
       }
     });
-    // console.log(this.state)
   }
 
 
@@ -103,6 +105,7 @@ class App extends Component {
       <NavBar userCounter = {this.state.userCounter}/>
       <MessageList
         messages={this.state.messages}
+        userColor = {this.state.userColor}
       />
       <ChatBar
         currentUser={this.state.currentUser.name}
