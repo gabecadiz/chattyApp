@@ -89,7 +89,6 @@ class App extends Component {
       <NavBar userCounter = {this.state.userCounter}/>
       <MessageList
         messages={this.state.messages}
-        userColor = {this.state.userColor}
       />
       <ChatBar
         currentUser={this.state.currentUser.name}

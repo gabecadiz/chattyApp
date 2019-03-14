@@ -25,8 +25,7 @@ const server = express()
   //the ws parameter in the callback.
   wss.on('connection', (ws) => {
     console.log('Client connected')
-    ws.color_id = userId;
-    ws.user_color = userColors[userId % 4]
+    ws.user_color = userColors[userId % userColors.length]
 
     userCounter = userCounter + 1;
     userId = userId + 1
@@ -47,7 +46,6 @@ const server = express()
     let parsedData = JSON.parse(clientData);
 
     if(parsedData.type === "postMessage"){
-      parsedData.color_id = ws.color_id;
       parsedData.user_color = ws.user_color;
 
       wss.clients.forEach(function each(client) {
