@@ -11,7 +11,7 @@ class MessageList extends Component {
         {
           this.props.messages.map(eachMessage => {
             if( eachMessage.type === "postMessage"){
-              return <Message userColor ={this.props.userColor} message={eachMessage} key={eachMessage.id}/>
+              return <Message message={eachMessage} key={eachMessage.id}/>
             }
             if (eachMessage.type === "postNotification"){
               return <Notification notification={eachMessage} key={eachMessage.id}/>

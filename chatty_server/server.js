@@ -13,6 +13,7 @@ const server = express()
   //counter for users logged in
   let userCounter = 0;
   let userColors = ["red","blue","green","pink"];
+  let userId = 0;
 
   //create the WebSockets server
 
@@ -24,8 +25,11 @@ const server = express()
   //the ws parameter in the callback.
   wss.on('connection', (ws) => {
     console.log('Client connected')
+    ws.color_id = userId;
+    ws.user_color = userColors[userId % 4]
+
     userCounter = userCounter + 1;
-    console.log(userCounter);
+    userId = userId + 1
 
     wss.clients.forEach(function each(client) {
       client.send(
@@ -33,21 +37,18 @@ const server = express()
           type: "incomingUser",
           data: {
             userCounter: userCounter,
-            userColor: userColors[ userCounter % 4]
           }
         })
       );
      });
-      // id: uuidv1(),
-      // oldUsername: this.state.currentUser.name,
-      // username: username,
-      // type: "postNotification"
 
   //listening to client
   ws.on('message', function incoming(clientData) {
     let parsedData = JSON.parse(clientData);
 
     if(parsedData.type === "postMessage"){
+      parsedData.color_id = ws.color_id;
+      parsedData.user_color = ws.user_color;
 
       wss.clients.forEach(function each(client) {
         client.send(
@@ -70,8 +71,6 @@ const server = express()
         );
       });
     }
-
-
   });
 
     //setup a callback for when a client closes the socket. This usually means they closed their browser
@@ -90,6 +89,5 @@ const server = express()
         );
       });
     });
-
   });
 

@@ -13,11 +13,9 @@ class App extends Component {
       currentUser: {name: "Anonymous"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
       userCounter: 0,
-      userColor: ""
     };
 
   }
-
 
   _addMessage = (message) => {
     const newMessage = {
@@ -43,13 +41,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    // setTimeout(()=>{
-    //   console.log("Simulating incoming message");
-    //   const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-    //   const messages = this.state.messages.concat(newMessage)
-    //   this.setState({messages: messages})
-    // }, 1000);
-
 
     // Create WebSocket connection.
     this.socket = new WebSocket('ws://localhost:3001');
@@ -63,8 +54,6 @@ class App extends Component {
     this.socket.addEventListener('message', (event) => {
       let parsedData = JSON.parse(event.data).data;
       let parsedType = JSON.parse(event.data).type;
-
-      // console.log("this is parsed data", parsedData)
 
       if(parsedType === "incomingMessage"){
         this.setState( state => {
@@ -87,16 +76,11 @@ class App extends Component {
         this.setState ( state => {
           return {
             userCounter: parsedData.userCounter,
-            userColor: parsedData.userColor
           }
         })
       }
     });
   }
-
-
-
-
 
   render() {
     return (
