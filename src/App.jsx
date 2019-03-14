@@ -11,7 +11,8 @@ class App extends Component {
     this.state =
     {
       currentUser: {name: "Anonymous"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      userCounter: 0
     };
 
   }
@@ -79,6 +80,14 @@ class App extends Component {
           }
         })
       }
+
+      if(parsedType ==="incomingUser"){
+        this.setState ( state => {
+          return {
+            userCounter: parsedData.userCounter
+          }
+        })
+      }
     });
     // console.log(this.state)
   }
@@ -91,7 +100,7 @@ class App extends Component {
     return (
       <div >
 
-      <NavBar />
+      <NavBar userCounter = {this.state.userCounter}/>
       <MessageList
         messages={this.state.messages}
       />

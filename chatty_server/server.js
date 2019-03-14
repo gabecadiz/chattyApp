@@ -10,6 +10,8 @@ const server = express()
   .use(express.static('public'))
   .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
 
+  //counter for users logged in
+  let userCounter = 0;
 
   //create the WebSockets server
 
@@ -21,7 +23,23 @@ const server = express()
   //the ws parameter in the callback.
   wss.on('connection', (ws) => {
     console.log('Client connected')
+    userCounter = userCounter + 1;
+    console.log(userCounter);
 
+    wss.clients.forEach(function each(client) {
+      client.send(
+        JSON.stringify({
+          type: "incomingUser",
+          data: {
+            userCounter: userCounter,
+          }
+        })
+      );
+     });
+      // id: uuidv1(),
+      // oldUsername: this.state.currentUser.name,
+      // username: username,
+      // type: "postNotification"
 
   //listening to client
   ws.on('message', function incoming(clientData) {
@@ -55,7 +73,21 @@ const server = express()
   });
 
     //setup a callback for when a client closes the socket. This usually means they closed their browser
-    ws.on('close', () => console.log('Client disconnected'));
+    ws.on('close', () => {
+      console.log('Client disconnected');
+      userCounter = userCounter - 1;
+
+      wss.clients.forEach(function each(client) {
+        client.send(
+          JSON.stringify({
+            type: "incomingUser",
+            data: {
+              userCounter: userCounter,
+            }
+          })
+        );
+      });
+    });
 
   });
 

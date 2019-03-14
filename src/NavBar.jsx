@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import UserCounter from "./UserCounter.jsx"
 
 class NavBar extends Component {
   render() {
@@ -6,6 +7,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
+        <UserCounter userCounter = {this.props.userCounter}/>
       </nav>
     );
   }
