@@ -25,9 +25,7 @@ const server = express()
 
   //listening to client
   ws.on('message', function incoming(message) {
-    // console.log(message)
     let parsedMessage = JSON.parse(message);
-    // console.log(`User ${parsedMessage.username} said ${parsedMessage.content}`);
 
     if(parsedMessage.type === "postMessage"){
 
@@ -42,8 +40,17 @@ const server = express()
 
     }
 
+    if(parsedMessage.type ==="postNotification"){
 
-  // ws.send('message received')
+      ws.send(
+        JSON.stringify({
+          type: "incomingNotification",
+          data: parsedMessage
+        })
+      )
+    }
+
+
   });
 
     //setup a callback for when a client closes the socket. This usually means they closed their browser

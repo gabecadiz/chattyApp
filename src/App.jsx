@@ -18,15 +18,26 @@ class App extends Component {
 
 
   _addMessage = (message) => {
-    const newMessage = {id: uuidv1(), username: this.state.currentUser.name, content: message, type:"postMessage"}
+    const newMessage = {
+      id: uuidv1(),
+      username: this.state.currentUser.name,
+      content: message,
+      type:"postMessage"
+    }
     const messages = this.state.messages.concat(newMessage)
-    // this.setState({messages: messages})
     this.socket.send(JSON.stringify(newMessage))
   }
 
   _alterUsername = (e) => {
     const username = e;
     this.setState({currentUser: {name: username}})
+    const usernameData = {
+      id: uuidv1(),
+      oldUsername: this.state.currentUser.name,
+      username: username,
+      type: "postNotification"
+    }
+    this.socket.send(JSON.stringify(usernameData))
   }
 
   componentDidMount(){
@@ -51,17 +62,27 @@ class App extends Component {
       let parsedData = JSON.parse(event.data).data;
       let parsedType = JSON.parse(event.data).type;
 
-      console.log(parsedData)
+      // console.log("this is parsed data", parsedData)
 
-      if(parsedType === "incomingMessage")
-      this.setState( state => {
-        return {
-          messages:[parsedData, ...state.messages]
-        }
-      })
+      if(parsedType === "incomingMessage"){
+        this.setState( state => {
+          return {
+            messages:[parsedData, ...state.messages]
+          }
+        })
+      }
+
+      if(parsedType ==="incomingNotification"){
+        this.setState( state => {
+          return {
+            messages:[parsedData,...state.messages]
+          }
+        })
+      }
     });
-
+    // console.log(this.state)
   }
+
 
 
 
