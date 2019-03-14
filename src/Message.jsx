@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Image from "./Image.jsx"
 
 
 class Message extends Component {
@@ -9,13 +10,7 @@ class Message extends Component {
           <span className="message-username" style = {{color: this.props.message.user_color }}>{this.props.message.username}</span>
           <span className="message-content">{this.props.message.content}</span>
         </div>
-        <div className="message-image-container">
-          <span className ="message-image-spacing"></span>
-          <span className = "message-image-spacing2">
-            <img className="message-image" src={this.props.message.imgUrl}>
-            </img>
-          </span>
-        </div>
+          { this.props.message.imgUrl ? <Image imgUrl={this.props.message.imgUrl}/> : ""}
       </div>
     );
   }

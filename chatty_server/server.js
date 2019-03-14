@@ -19,7 +19,6 @@ const server = express()
 
   const wss = new SocketServer ({ server })
 
-
   //setup a callback that will run when a client connects to the server
   //when a client connects they are assigned a socket, represnted by
   //the ws parameter in the callback.

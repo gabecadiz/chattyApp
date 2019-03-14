@@ -14,7 +14,6 @@ class App extends Component {
       messages: [],
       userCounter: 0,
     };
-
   }
 
   _addMessage = (message) => {
@@ -27,8 +26,6 @@ class App extends Component {
 
     let regex = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i
     let found = message.match(regex);
-
-
 
     if (regex.test(message)){
       newMessage.imgUrl = found[0];
@@ -70,7 +67,7 @@ class App extends Component {
       if(parsedType === "incomingMessage"){
         this.setState( state => {
           return {
-            messages:[parsedData, ...state.messages]
+            messages:[...state.messages,parsedData]
           }
         })
       }
@@ -78,7 +75,7 @@ class App extends Component {
       if(parsedType ==="incomingNotification"){
         this.setState( state => {
           return {
-            messages:[parsedData,...state.messages]
+            messages:[...state.messages,parsedData]
           }
         })
       }
