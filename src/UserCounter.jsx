@@ -8,12 +8,12 @@ class UserCounter extends Component {
   render() {
     return (
       <div>
-        <p> {this.props.userCounter === 1 ?
+        <span> {this.props.userCounter === 1 ?
           `${this.props.userCounter} user connected`
             :
           `${this.props.userCounter} users connected`
             }
-        </p>
+        </span>
       </div>
     );
   }
