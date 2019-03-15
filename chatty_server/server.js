@@ -12,7 +12,9 @@ const server = express()
 
   //counter for users logged in
   let userCounter = 0;
-  let userColors = ["red","blue","green","pink"];
+  let userColors = ["#B82601","#813772","#062F4F","#3CC47C"];
+
+  //userId to help provide colors
   let userId = 0;
 
   //create the WebSockets server
@@ -20,8 +22,6 @@ const server = express()
   const wss = new SocketServer ({ server })
 
   //setup a callback that will run when a client connects to the server
-  //when a client connects they are assigned a socket, represnted by
-  //the ws parameter in the callback.
   wss.on('connection', (ws) => {
     console.log('Client connected')
     ws.user_color = userColors[userId % userColors.length]
@@ -29,6 +29,7 @@ const server = express()
     userCounter = userCounter + 1;
     userId = userId + 1
 
+    //broadcast number of connected users to all users
     wss.clients.forEach(function each(client) {
       client.send(
         JSON.stringify({
@@ -44,6 +45,7 @@ const server = express()
   ws.on('message', function incoming(clientData) {
     let parsedData = JSON.parse(clientData);
 
+    //broadcast a user's message to all connected clients
     if(parsedData.type === "postMessage"){
       parsedData.user_color = ws.user_color;
 
@@ -58,6 +60,7 @@ const server = express()
 
     }
 
+    //broadcast a user's new username to all connected clients
     if(parsedData.type ==="postNotification"){
       wss.clients.forEach(function each(client) {
         client.send(
@@ -75,6 +78,7 @@ const server = express()
       console.log('Client disconnected');
       userCounter = userCounter - 1;
 
+      //broadcast new user counter to all connected clients
       wss.clients.forEach(function each(client) {
         client.send(
           JSON.stringify({

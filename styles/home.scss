@@ -2,7 +2,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
 body {
-  background: white;
+  background: #D5D5D5;
   color: black;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -10,7 +10,7 @@ body {
 }
 
 .chatbar {
-  background: tomato;
+  background: #95a5c9;
   border-top: 1px solid black;
   bottom: 0;
   display: flex;
@@ -86,7 +86,7 @@ body {
 }
 
 .navbar {
-  background: tomato;
+  background: #95a5c9;
   border-bottom: 1px solid black;
   height: 60px;
   left: 0;

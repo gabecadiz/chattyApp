@@ -10,7 +10,7 @@ class App extends Component {
     super();
     this.state =
     {
-      currentUser: {name: "Anonymous"}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: "Anonymous"},
       messages: [],
       userCounter: 0,
     };
@@ -56,7 +56,7 @@ class App extends Component {
 
     // Connection opened
     this.socket.addEventListener('open', (event) => {
-      // this.socket.send('Hello Server!');
+
     });
 
     // Listen for messages
