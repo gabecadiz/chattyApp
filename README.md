@@ -1,7 +1,11 @@
-React Boilerplate
+Chatty App
 =====================
 
 A minimal and light dev environment for ReactJS.
+
+![Each user that connects gets their own colour](https://github.com/gabecadiz/chattyApp/blob/master/docs/chatty-app-demo-01.gif)
+
+![Users can send gif, jpg, jpeg and png files and display them on the app](https://github.com/gabecadiz/chattyApp/blob/master/docs/chatty-app-demo-02.gif)
 
 ### Usage
 
@@ -23,19 +27,7 @@ npm start
 open http://localhost:3000
 ```
 
-### Static Files
 
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
 
 ### Dependencies
 
